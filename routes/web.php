@@ -24,6 +24,7 @@ Route::get('page/{slug}', [\App\Http\Controllers\PagesController::class, 'index'
 Route::get('category/{slug}', [\App\Http\Controllers\CategoryController::class, 'index'])->name('category');
 Route::get('blog/{slug}', [\App\Http\Controllers\BlogController::class, 'details'])->name('blog-detail');
 Route::get('blog', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog');
+Route::get('blog/category/{slug}', [\App\Http\Controllers\BlogController::class, 'indexBlogCat'])->name('blog.category');
 Route::get('login', [\App\Http\Controllers\Auth\LoginController::class, 'showSiteLoginForm'])->name('login');
 Route::get('register', [\App\Http\Controllers\Auth\RegisterController::class, 'showSiteRegisterForm'])->name('register');
 
@@ -34,12 +35,11 @@ Route::post('cart/store', [\App\Http\Controllers\CartController::class, 'storeCa
 
 Route::post('cart/changeQuantity', [\App\Http\Controllers\CartController::class, 'changeQuantity'])->name('cart.changeQuantity');
 
-
-
 Route::group(['middleware' => 'auth:customer'], function() {
     Route::get('cart', [\App\Http\Controllers\CartController::class, 'index'])->name('cart');
 
     Route::get('checkout', [\App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
+    Route::post('checkout', [\App\Http\Controllers\CheckoutController::class, 'postCheckout'])->name('cart.postCheckout');
     Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
 
