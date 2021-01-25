@@ -49,11 +49,11 @@
                                 <div class="form-row">
                                     <div class="form-group col-sm-6">
                                         <label for="old_price" class="font-weight-semibold @error('old_price') text-danger @enderror">Old Price</label>
-                                        <input type="text" class="form-control " name="old_price" value="{{$product->old_price}}">
+                                        <input type="number"  step="any" class="form-control " name="old_price" value="{{$product->old_price}}">
                                     </div>
                                     <div class="form-group col-sm-6">
-                                        <label for="price" class="font-weight-semibold @error('price') text-danger @enderror">Price</label>
-                                        <input type="text" class="form-control " name="price" value="{{$product->price}}">
+                                        <label for="price"  class="font-weight-semibold @error('price') text-danger @enderror">Price</label>
+                                        <input type="number"  step="any" class="form-control " name="price" value="{{$product->price}}">
                                     </div>
                                     <div class="form-group col-sm-6">
                                         <label for="status" class="font-weight-semibold @error('parent_id') text-danger @enderror">{{__('messages.category')}}</label>

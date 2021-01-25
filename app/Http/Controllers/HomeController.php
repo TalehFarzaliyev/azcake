@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $homeSliders  = Slider::where(['status' => 1, 'is_home' => 1])->get();
-        $homeProducts = Product::where(['status' => 1, 'is_home' => 1])->get();
+        $homeProducts = Product::where(['status' => 1])->get();
 
         return view('site.pages.index', [
             'homeSliders'  => $homeSliders,

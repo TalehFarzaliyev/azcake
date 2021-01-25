@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('parent_id')->default(0);
             $table->boolean('status')->default(0); // 0 Disable // 1 Enable
+            $table->boolean('is_product')->default(1); // product yada blog
             $table->timestamps();
         });
     }

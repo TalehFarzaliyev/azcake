@@ -67,4 +67,5 @@ class Product extends Model implements TranslatableContract
     public function images() {
         return $this->hasMany(ProductImages::class, 'product_id');
     }
+
 }

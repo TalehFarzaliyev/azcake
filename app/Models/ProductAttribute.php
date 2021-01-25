@@ -26,4 +26,8 @@ class ProductAttribute extends Model implements TranslatableContract
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function variants(){
+        return $this->hasMany(SingleProductAttributes::class, 'product_attribute_id','id');
+    }
 }

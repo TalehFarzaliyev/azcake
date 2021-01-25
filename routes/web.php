@@ -22,16 +22,23 @@ Route::get('faq', [\App\Http\Controllers\PagesController::class, 'faq'])->name('
 Route::get('gallery', [\App\Http\Controllers\GalleryController::class, 'index'])->name('gallery');
 Route::get('page/{slug}', [\App\Http\Controllers\PagesController::class, 'index'])->name('page');
 Route::get('category/{slug}', [\App\Http\Controllers\CategoryController::class, 'index'])->name('category');
-Route::get('blog', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog');
 Route::get('blog/{slug}', [\App\Http\Controllers\BlogController::class, 'details'])->name('blog-detail');
+Route::get('blog', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog');
 Route::get('login', [\App\Http\Controllers\Auth\LoginController::class, 'showSiteLoginForm'])->name('login');
 Route::get('register', [\App\Http\Controllers\Auth\RegisterController::class, 'showSiteRegisterForm'])->name('register');
 
 Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'loginSite'])->name('login');
-Route::post('add-to-cart', [\App\Http\Controllers\ProductController::class, 'addToCart'])->name('add-to-cart');
+Route::any('add-to-cart', [\App\Http\Controllers\ProductController::class, 'addToCart'])->name('add-to-cart');
+Route::get('cart/json', [\App\Http\Controllers\CartController::class, 'jsonCart'])->name('cart.jsonCart');
+Route::post('cart/store', [\App\Http\Controllers\CartController::class, 'storeCart'])->name('cart.store');
+
+Route::post('cart/changeQuantity', [\App\Http\Controllers\CartController::class, 'changeQuantity'])->name('cart.changeQuantity');
+
+
 
 Route::group(['middleware' => 'auth:customer'], function() {
     Route::get('cart', [\App\Http\Controllers\CartController::class, 'index'])->name('cart');
+
     Route::get('checkout', [\App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
     Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
@@ -74,6 +81,9 @@ Route::group(['as' => 'admin.','prefix' => 'admin'],function (){
         Route::post('menu/{menu}/create/{type}','MenuController@createContent')->name('menu.create.content');
         Route::post('menu/{menu}/update','MenuController@updateContent')->name('menu.update.content');
         Route::delete('menu/content/{menucontent}','MenuController@deleteContent')->name('menu.delete.content');
+
+        Route::post('product/{product}/dropzone', 'ProductController@dropzone')->name('product.dropzone');
+        Route::delete('product/{product}/dropzone/delete', 'ProductController@dropzoneDelete')->name('product.dropzone.delete');
 
         Route::group(['prefix' => 'single_product', 'as' => 'single_product.'], function (){
 

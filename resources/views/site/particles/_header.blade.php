@@ -18,7 +18,7 @@
                                                 aria-haspopup="false"
                                                 aria-expanded="true"
                                                 @endif
-                                                href="{{ $topMenu->page ? route('page', $topMenu->page->slug) : ($topMenu->category ? route('category',$topMenu->category->slug) : url($topMenu->route)) }}"
+                                                href="{{ $topMenu->page ? route('page', $topMenu->page->slug) : ($topMenu->category ? ($topMenu->category->is_product ?  route('category',$topMenu->category->slug) : route('blog.category',$topMenu->category->slug))  : url($topMenu->route)) }}"
                                         >
 
                                             {{ $topMenu->page ? $topMenu->page->title : ($topMenu->category ? $topMenu->category->name :  __($topMenu->lang)) }}
@@ -61,8 +61,8 @@
                         </li>
                         @else
                         <li>
-                            <a href="{{route('login')}}" class="mr-3">Login</a>
-                            <a href="{{route('register')}}">Register</a>
+                            <a href="{{route('login')}}" class="mr-3">@lang('Login')</a>
+                            <a href="{{route('register')}}">@lang('Register')</a>
                         </li>
                         @endif
                     </ul>
@@ -77,7 +77,7 @@
                             <label>
                                 <select data-dropdown-class="select-inline-dropdown">
                                     @foreach($languages as $key => $value)
-                                    <option @if($current_language == $value->code) @endif value="{{$value->code}}">{{$value->name}}</option>
+                                    <option @if($current_language == $value->code) selected @endif value="{{$value->code}}">{{$value->name}}</option>
                                     @endforeach
                                 </select>
                             </label>
@@ -108,7 +108,7 @@
                         <ul class="ch-navbar-nav">
                             @foreach(get_menus(1) as $key => $bottomMenu)
                             <li class="ch-nav-item active">
-                                <a class="ch-nav-link" href="{{ $bottomMenu->page ? route('page', $bottomMenu->page->slug) : ($bottomMenu->category ? route('category',$bottomMenu->category->slug) : url($bottomMenu->route)) }}">
+                                <a class="ch-nav-link" href="{{ $bottomMenu->page ? route('page', $bottomMenu->page->slug) : ($bottomMenu->category ? ($bottomMenu->category->is_product ? route('category',$bottomMenu->category->slug) : route('blog.category',$bottomMenu->category->slug)) : url($bottomMenu->route)) }}">
                                     {{ $bottomMenu->page ? $bottomMenu->page->title : ($bottomMenu->category ? $bottomMenu->category->name :  __($bottomMenu->lang)) }}
 
                                 </a>
@@ -132,7 +132,7 @@
                         <!-- RD Navbar Search-->
                         <div class="ch-navbar-search ch-navbar-search-2">
                             <button class="ch-navbar-search-toggle ch-navbar-fixed-element-3" data-ch-navbar-toggle=".ch-navbar-search">
-                                <span> </span>
+                                <span ></span>
                             </button>
                             <form class="ch-search" action="#" data-search-live="ch-search-results-live" method="GET">
                                 <div class="form-wrap">
@@ -145,13 +145,14 @@
                         </div>
                         <!-- RD Navbar Basket-->
                         <div class="ch-navbar-basket-wrap">
-                            <button class="ch-navbar-basket fl-bigmug-line-shopping202" data-ch-navbar-toggle=".cart-inline"><span>0</span></button>
+                            <button class="ch-navbar-basket fl-bigmug-line-shopping202" data-ch-navbar-toggle=".cart-inline"><span id="quantity_cart_inline">0</span>
+                            </button>
                             <div class="cart-inline">
                                 <div class="cart-inline-header">
-                                    <h5 class="cart-inline-title countProduct">In cart:<span> 0</span> Products</h5>
-                                    <h6 class="cart-inline-title total">Total price: $<span>0</span></h6>
+                                    <h5 class="cart-inline-title countProduct">In cart:<span id="quantity_countProduct"> 0</span> Products</h5>
+                                    <h6 class="cart-inline-title total">Total price: <span id="total_header">0</span> AZN</h6>
                                 </div>
-                                <div class="cart-inline-body"></div>
+                                <div class="cart-inline-body" id="header_cart_body"></div>
                                 <div class="cart-inline-footer">
                                     <div class="group-sm">
                                         <a class="button button-default-outline-2 button-zakaria" href="{{route('cart')}}">Go to cart</a>

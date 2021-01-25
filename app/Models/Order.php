@@ -9,7 +9,7 @@ class Order extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['order_status_id', 'customer_id', 'address', 'total'];
+    protected $fillable = ['order_status_id', 'customer_id', 'first_name', 'last_name', 'phone', 'address', 'special_text', 'total'];
 
     public function order_products(){
         return $this->hasMany(OrderProduct::class);

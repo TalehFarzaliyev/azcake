@@ -29,6 +29,8 @@
     <script src="{{asset('assets/global_assets/js/plugins/editors/ckeditor/ckeditor.js')}}"></script>
     <script src="{{asset('assets/global_assets/js/demo_pages/editor_ckeditor_default.js')}}"></script>
     <script src="{{asset('assets/global_assets/js/nestable/jquery.nestable.js')}}"></script>
+    <!-- Theme JS files -->
+    <script src="{{ asset('assets/global_assets/js/plugins/uploaders/dropzone.min.js') }}"></script>
 
     <script src="{{asset('assets/js/app.js')}}"></script>
     <script src="{{asset('assets/js/custom.js')}}"></script>

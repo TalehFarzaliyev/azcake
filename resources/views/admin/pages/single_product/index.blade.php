@@ -43,16 +43,19 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <label for="status" class="font-weight-semibold @error('product_attribute_id') text-danger @enderror">{{__('messages.product_attribute')}}</label>
+                                    <label for="status" class="font-weight-semibold @if(session('error')) text-danger @endif @error('product_attribute_id') text-danger @enderror">{{__('messages.product_attribute')}}</label>
                                     <div class="form-group-feedback form-group-feedback-right">
                                         <select name="product_attribute_id" class="select" id="status" @error('product_attribute_id') data-container-css-class="border-danger text-danger" @enderror>
                                             @foreach($product_attributes as $attribute)
-                                                <option {{old('status') == 1 ? 'selected': ''}} value="1">{{ $attribute->name }}</option>
+                                                <option {{old('product_attribute_id') == $attribute->id ? 'selected': ''}} value="{{ $attribute->id }}">{{ $attribute->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     @error('product_attribute_id')
                                     <span class="form-text font-weight-semibold text-danger">{{ $message }}</span>
+                                    @enderror
+                                    @if(session('error'))
+                                    <span class="form-text font-weight-semibold text-danger">{{ session('error') }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group col-sm-6">

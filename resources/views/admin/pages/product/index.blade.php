@@ -78,6 +78,7 @@
                                     <td class="text-center">
                                         <div class="btn-group">
                                             <x-edit route="admin.product.edit" :id="$post->id"/>
+                                            <a href="{{route('admin.product.show', $post->id)}}" type="button" class="btn btn-light" data-popup="tooltip" data-placement="right" data-original-title="{{ __('messages.product_gallery') }}"><i class="icon-images3"></i></a>
                                             <a href="{{route('admin.single_product.index', $post->id)}}" type="button" class="btn btn-light" data-popup="tooltip" data-placement="right" data-original-title="{{ __('messages.product_variants') }}"><i class="icon-cube4"></i></a>
                                             <x-delete route="admin.product.destroy" :id="$post->id"/>
                                         </div>

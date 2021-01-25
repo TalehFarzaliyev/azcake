@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', __('contact.title_show'))
+@section('title', __('Show Order'))
 @section('content')
     <!-- Page content -->
     <div class="page-content pt-0">
@@ -8,37 +8,36 @@
             <!-- Content area -->
             <div class="content">
                 <div class="card">
-                    <div class="card-body tab-content">
-                        <div class="fade show">
-                            <div class="form-row">
-                                <div class="form-group col-sm-12">
-                                    <label for="name">{{__('messages.name')}}</label>
-                                    <input type="text" class="form-control " name="name" id="name"
-                                           value="{{ $contact->name }}">
-                                </div>
-                                <div class="form-group col-sm-12">
-                                    <label for="subject">{{__('messages.subject')}}</label>
-                                    <input type="text" class="form-control " name="subject" id="subject"
-                                           value="{{ $contact->subject }}">
-                                </div>
-                                <div class="form-group col-sm-12">
-                                    <label for="email">{{__('messages.email')}}</label>
-                                    <input type="email" class="form-control " name="email" id="email"
-                                           value="{{ $contact->email }}">
-                                </div>
-                                <div class="form-group col-sm-12">
-                                    <label>{{__('messages.message')}}</label>
-                                    <textarea name="message" class="form-control" rows="10"
-                                              cols="30">{{ $contact->message }}</textarea>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th><a>#</a></th>
+                                <th>Product</th>
+                                <th>Atribute</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($items as $item)
+                                <tr>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ optional($item->product)->name }}</td>
+                                    <td>{{ optional($item->attribute)->name }}</td>
+                                    <td>{{ $item->qty.' Ədəd' }}</td>
+                                    <td>{{ $item->price.' AZN' }}</td>
 
-                                </div>
-                            </div>
-                        </div>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
+
                     <div class="card-body">
                         <div class="form-row">
                             <div class="col-sm-12">
-                                <x-back route="admin.contact.index"></x-back>
+                                <x-back route="admin.order.index"></x-back>
                             </div>
                         </div>
                     </div>

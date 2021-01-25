@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -27,18 +28,17 @@ class OrderController extends Controller
         $order = \request('order','ASC');
 
         $query = Order::query();
-
+        $query = $query->with(['order_status','customer']);
         if (in_array($column, getFillable(new Order(),'created_at', 'updated_at')) and in_array($order,['ASC','DESC'])){
             $query = $query->orderBy($column, $order);
         }
-
         $query = $query->where($this->searchWhere());
 
         $query = $query->paginate(10);
 
-        $orders = $query->appends(request()->query());
+        $items = $query->appends(request()->query());
 
-        return view('admin.pages.order.index', compact('orders'));
+        return view('admin.pages.order.index', compact('items'));
     }
 
     /**
@@ -70,7 +70,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('admin.pages.order.show', compact('order'));
+        $items = OrderProduct::with(['attribute','product'])
+            ->where('order_id', $order['id'])->get();
+        return view('admin.pages.order.show', compact('items'));
     }
 
     /**

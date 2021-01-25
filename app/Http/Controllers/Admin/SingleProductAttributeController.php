@@ -11,8 +11,20 @@ use Illuminate\Http\Request;
 class SingleProductAttributeController extends Controller
 {
 
+    /**
+     * @param Product $product
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Product $product){
-        $product_attributes = ProductAttribute::enable()->get();
+
+        $var = SingleProductAttributes::where('product_id', $product['id'])->first();
+
+        if ($var){
+            $product_attributes = ProductAttribute::enable()->where('id', $var['product_attribute_id'])->get();
+        }else{
+            $product_attributes = ProductAttribute::enable()->get();
+        }
+
 
 
         $query = SingleProductAttributes::where('product_id', $product['id']);
@@ -31,15 +43,35 @@ class SingleProductAttributeController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Product $product
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request, Product $product){
 
         $data = $request->validate($this->store_validate());
 
+        $att = SingleProductAttributes::where('product_id', $product['id'])->pluck('product_attribute_id')->toArray();
+
+        if (count($att)){
+
+            if (! in_array($data['product_attribute_id'],$att)){
+                $array = _sessionmessage('Xeta Var!', 'Bir mehsula iki ferqli atribut seçilə bilməz','error');
+                $array['error'] = 'Bir mehsula iki ferqli atribut seçilə bilməz';
+                // 'error' => 'Bir mehsula iki ferqli atribut seçilə bilməz'
+                return back()->withInput($data)->with($array);
+            }
+
+        }
         SingleProductAttributes::create($data);
 
         return back()->with(_sessionmessage());
     }
 
+    /**
+     * @return string[]
+     */
     public function store_validate(){
         $validate_arr = [
             'product_attribute_id' => 'required|numeric',
@@ -54,6 +86,12 @@ class SingleProductAttributeController extends Controller
         return $validate_arr;
     }
 
+
+    /**
+     * @param SingleProductAttributes $single_product_attribute
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function destroy(SingleProductAttributes $single_product_attribute)
     {
 

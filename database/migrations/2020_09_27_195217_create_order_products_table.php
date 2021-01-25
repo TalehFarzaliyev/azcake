@@ -19,6 +19,7 @@ class CreateOrderProductsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('product_attribute_id');
             $table->integer('qty');
+            $table->double('price')->default(0);
             $table->timestamps();
         });
     }

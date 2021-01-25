@@ -19,6 +19,7 @@ class Category extends Model
 
     protected $fillable = [
         'status',
+        'is_product',
         'parent_id'
     ];
 
@@ -40,7 +41,14 @@ class Category extends Model
     /**
      * @return HasMany
      */
-    public function posts()
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'product_category_id');
+    }
+    /**
+     * @return HasMany
+     */
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'category_id');
     }

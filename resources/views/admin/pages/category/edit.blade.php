@@ -47,7 +47,19 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-row">
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-sm-4">
+                                        <label for="status" class="font-weight-semibold @error('is_product') text-danger @enderror">{{__('messages.status')}}</label>
+                                        <div class="form-group-feedback form-group-feedback-right">
+                                            <select name="is_product" class="select" id="is_product" @error('is_product') data-container-css-class="border-danger text-danger" @enderror>
+                                                <option {{old('is_product') == 1 ? 'selected': ''}} value="1">{{__('messages.is_product')}}</option>
+                                                <option {{old('is_product') == '0'? 'selected': ''}}  value="0">{{__('messages.is_not_product')}}</option>
+                                            </select>
+                                        </div>
+                                        @error('is_product')
+                                        <span class="form-text font-weight-semibold text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-sm-4">
                                         <label for="status">{{__('messages.status')}}</label>
                                         <select name="status" class="select">
                                             <option {{old('status', $category->status) == 1 ? 'selected': ''}} value="1">{{__('messages.enable')}}</option>
@@ -57,7 +69,7 @@
                                         <span class="form-text font-weight-semibold text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-sm-4">
                                         <label for="status" class="font-weight-semibold @error('parent_id') text-danger @enderror">{{__('messages.parent')}}</label>
                                         <div class="form-group-feedback form-group-feedback-right">
                                             <select name="parent_id" class="select" id="parent_id" @error('parent_id') data-container-css-class="border-danger text-danger" @enderror>

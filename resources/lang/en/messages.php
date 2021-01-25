@@ -161,5 +161,7 @@ return [
     'menu' => 'Menu',
     'filemanager' => 'File Manager',
     'You haven`t added anything to the menu yet.' => 'You haven`t added anything to the menu yet.',
+    'gallery' => 'Galereya',
+    'blog' => 'Blog',
 
 ];

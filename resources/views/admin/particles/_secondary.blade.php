@@ -23,6 +23,12 @@
                     {{ __('messages.filemanager') }}
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.customer.index') }}" class="navbar-nav-link {{ request()->routeIs('admin.customer.*')  ? 'active' : ''}}">
+                    <i class="icon-person mr-2"> </i>
+                    {{ __('messages.customer') }}
+                </a>
+            </li>
 
             <li class="nav-item">
                 <a href="{{ route('admin.menu.index') }}" class="navbar-nav-link {{ request()->routeIs('admin.menu.*')  ? 'active' : ''}}">
@@ -34,6 +40,12 @@
                 <a href="{{ route('admin.product.index') }}" class="navbar-nav-link {{ request()->routeIs('admin.product.*')  ? 'active' : ''}}">
                     <i class="icon-cog mr-2"></i>
                     {{ __('messages.product') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.order.index') }}" class="navbar-nav-link {{ request()->routeIs('admin.order.*')  ? 'active' : ''}}">
+                    <i class="icon-cart mr-2"></i>
+                    {{ __('messages.order') }}
                 </a>
             </li>
 {{--            <li class="nav-item">--}}

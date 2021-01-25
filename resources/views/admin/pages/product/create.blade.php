@@ -52,11 +52,11 @@
                                 <div class="form-row">
                                     <div class="form-group col-sm-6">
                                         <label for="number" class="font-weight-semibold @error('old_price') text-danger @enderror">Old Price</label>
-                                        <input type="text" class="form-control " name="old_price" placeholder="10" value="">
+                                        <input type="text" step="any" class="form-control " name="old_price" placeholder="10" value="">
                                     </div>
                                     <div class="form-group col-sm-6">
-                                        <label for="price" class="font-weight-semibold @error('price') text-danger @enderror">Price</label>
-                                        <input type="number" class="form-control " name="price" placeholder="10" value="">
+                                        <label for="price" step="any"  class="font-weight-semibold @error('price') text-danger @enderror">Price</label>
+                                        <input type="number" step="any" class="form-control " name="price" placeholder="10" value="">
                                     </div>
                                     <div class="form-group col-sm-6">
                                         <label for="status" class="font-weight-semibold @error('parent_id') text-danger @enderror">{{__('messages.category')}}</label>

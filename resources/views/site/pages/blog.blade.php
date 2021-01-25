@@ -5,7 +5,7 @@
         <div class="parallax-container breadcrumbs_section">
             <div class="breadcrumbs-custom-body parallax-content context-dark">
                 <div class="container">
-                    <h1 class="breadcrumbs-custom-title">Blog List</h1>
+                    <h1 class="breadcrumbs-custom-title">{{ $category ? $category->name : 'Blog List' }}</h1>
                 </div>
             </div>
         </div>
@@ -13,8 +13,9 @@
             <div class="container">
                 <ul class="breadcrumbs-custom-path">
                     <li><a href="{{route('home')}}">Home</a></li>
+
                     <li><a href="{{route('blog')}}">Blog</a></li>
-                    <li class="active">Blog List</li>
+                    <li class="active">{{ $category ? $category->name : 'Blog List' }}</li>
                 </ul>
             </div>
         </div>
@@ -41,12 +42,12 @@
                                         </a>
                                     </h3>
                                     <a class="post-modern-figure" href="{{route('blog-detail', $post->translate($current_language)->slug)}}">
-                                        <img src="{{asset('front/images/blog/blog-detail-1.jpg')}}" alt="{{$post->translate($current_language)->name}}" width="800" height="394"/>
+                                        <img src="{{asset('uploads/'.$post->image)}}" alt="{{$post->translate($current_language)->name}}" width="800" height="394"/>
                                     </a>
                                     <p class="post-modern-text">
                                         {{\App\Library\Helper::shortenText(\App\Library\Helper::cleanBody($post->translate($current_language)->description), 152)}}
                                     </p>
-                                    <a class="post-modern-link" href="{{route('blog-detail', $post->translate($current_language)->slug)}}">Read more</a>
+                                    <a class="post-modern-link" href="{{route('blog-detail', $post->slug)}}">@lang('Read more')a</a>
                                 </article>
                             </div>
                             @endforeach

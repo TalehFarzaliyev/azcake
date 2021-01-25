@@ -9,7 +9,7 @@ class OrderProduct extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['order_id', 'product_id', 'product_attribute_id', 'qty'];
+    protected $fillable = ['order_id', 'product_id', 'product_attribute_id', 'qty','price'];
 
     public function order() {
         return $this->belongsTo(Order::class);

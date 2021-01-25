@@ -19,201 +19,193 @@
             </div>
         </div>
     </section>
-    <!-- Section checkout form-->
-    <section class="section section-sm section-first bg-default text-md-left">
-        <div class="container">
-            <div class="row row-50 justify-content-center">
-                <div class="col-md-10 col-lg-6">
-                    <h3 class="font-weight-medium">Billing Address</h3>
-                    <form class="ch-form ch-mailform form-checkout">
-                        <div class="row row-30">
-                            <div class="col-sm-6">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-first-name-1" type="text" name="name" data-constraints="@Required"/>
-                                    <label class="form-label" for="checkout-first-name-1">First Name</label>
+    <form action="{{ route('cart.postCheckout') }}" method="post">
+        @csrf
+            @if($products->count())
+        <!-- Section checkout form-->
+        <section class="section section-sm section-first bg-default text-md-left">
+            <div class="container">
+                <div class="row row-50 justify-content-center">
+                    <div class="col-md-10 col-lg-6">
+                        <h3 class="font-weight-medium">@lang('Istifadəçi Məlumatları')</h3>
+                        <div class="ch-form ch-mailform form-checkout">
+                            <div class="row row-30">
+                                <div class="col-sm-6">
+                                    <div class="form-wrap">
+                                        <input class="form-input @error('first_name') form-control-has-validation @enderror" id="checkout-first-name-1" type="text" name="first_name" value="{{ old('first_name') }}" data-constraints="@Required"/>
+                                        @error('first_name')
+                                        <span class="form-validation">{{ $message }}</span>
+                                        @enderror
+                                        <label class="form-label" for="checkout-first-name-1">@lang('First Name')</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-last-name-1" type="text" name="name" data-constraints="@Required"/>
-                                    <label class="form-label" for="checkout-last-name-1">Last Name</label>
+                                <div class="col-sm-6">
+                                    <div class="form-wrap">
+                                        <input class="form-input @error('last_name') form-control-has-validation @enderror" id="checkout-last-name-1" type="text" name="last_name" value="{{ old('last_name') }}" data-constraints="@Required"/>
+                                        @error('last_name')
+                                        <span class="form-validation">{{ $message }}</span>
+                                        @enderror
+                                        <label class="form-label" for="checkout-last-name-1">@lang('Last Name')</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-company-1" type="text" name="name" data-constraints="@Required"/>
-                                    <label class="form-label" for="checkout-company-1">Company</label>
+                                <div class="col-sm-12">
+                                    <div class="form-wrap">
+                                        <input class="form-input @error('phone') form-control-has-validation @enderror" id="checkout-last-name-1" type="text" name="phone" value="{{ old('phone') }}" data-constraints="@Required"/>
+                                        @error('phone')
+                                        <span class="form-validation">{{ $message }}</span>
+                                        @enderror
+                                        <label class="form-label" for="checkout-last-name-1">@lang('Phone')</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-address-1" type="text" name="name" data-constraints="@Required"/>
-                                    <label class="form-label" for="checkout-address-1">Address</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-city-1" type="text" name="name" data-constraints="@Required"/>
-                                    <label class="form-label" for="checkout-city-1">City/Town</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-email-1" type="email" name="email" data-constraints="@Email @Required"/>
-                                    <label class="form-label" for="checkout-email-1">E-Mail</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-phone-1" type="text" name="phone" data-constraints="@Numeric"/>
-                                    <label class="form-label" for="checkout-phone-1">Phone</label>
-                                </div>
-                            </div>
-                        </div>
-                        <label class="checkbox-inline text-transform-capitalize">
-                            <input name="input-checkbox-1" value="checkbox-1" type="checkbox"/>My Billing Address and Shipping Address are the same
-                        </label>
-                    </form>
-                </div>
-                <div class="col-md-10 col-lg-6">
-                    <h3 class="font-weight-medium">Delivery Address</h3>
-                    <form class="ch-form ch-mailform form-checkout">
-                        <div class="row row-30">
-                            <div class="col-sm-6">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-first-name-2" type="text" name="name" data-constraints="@Required"/>
-                                    <label class="form-label" for="checkout-first-name-2">First Name</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-last-name-2" type="text" name="name" data-constraints="@Required"/>
-                                    <label class="form-label" for="checkout-last-name-2">Last Name</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-company-2" type="text" name="name" data-constraints="@Required"/>
-                                    <label class="form-label" for="checkout-company-2">Company</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-address-2" type="text" name="name" data-constraints="@Required"/>
-                                    <label class="form-label" for="checkout-address-2">Address</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-city-2" type="text" name="name" data-constraints="@Required"/>
-                                    <label class="form-label" for="checkout-city-2">City/Town</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-email-2" type="email" name="email" data-constraints="@Email @Required"/>
-                                    <label class="form-label" for="checkout-email-2">E-Mail</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="checkout-phone-2" type="text" name="phone" data-constraints="@Numeric"/>
-                                    <label class="form-label" for="checkout-phone-2">Phone</label>
+                                <div class="col-12">
+                                    <div class="form-wrap">
+                                        <input class="form-input @error('address') form-control-has-validation @enderror" id="checkout-address-1" type="text" name="address" data-constraints="@Required"/>
+                                        @error('address')
+                                        <span class="form-validation">{{ $message }}</span>
+                                        @enderror
+                                        <label class="form-label" for="checkout-address-1">@lang('Address')</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Shopping Cart-->
-    <section class="section section-sm bg-default text-md-left" id="cart-section">
-        <div class="container">
-            <h3 class="font-weight-medium">Your shopping cart</h3>
-            <div class="table-custom-responsive">
-                <table class="table-custom table-cart">
-                    <thead>
-                    <tr>
-                        <th>Product name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                    </tr>
-                    </thead>
-                    <tbody class="cart-list-body"></tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-    <!-- Section Payment-->
-    <section class="section section-sm section-last bg-default text-md-left">
-        <div class="container">
-            <div class="row row-50 justify-content-center">
-                <div class="col-md-10 col-lg-6">
-                    <h3 class="font-weight-medium">Payment methods</h3>
-                    <div class="box-radio">
-                        <div class="radio-panel">
-                            <label class="radio-inline active">
-                                <input name="input-group-radio" value="checkbox-1" type="radio" checked>Direct Bank Transfer
-                            </label>
-                            <div class="radio-panel-content">
-                                <p>Make your payment directly into our bank account. Please use your Ocher ID as the payment reference. Your ocher will be shipped right away.</p>
-                            </div>
-                        </div>
-                        <div class="radio-panel">
-                            <label class="radio-inline">
-                                <input name="input-group-radio" value="checkbox-1" type="radio">PayPal
-                            </label>
-                            <div class="radio-panel-content">
-                                <p>Pay via PayPal; you can pay with your credit cach if you don’t have a PayPal account.</p>
-                            </div>
-                        </div>
-                        <div class="radio-panel">
-                            <label class="radio-inline">
-                                <input name="input-group-radio" value="checkbox-1" type="radio">Cheque Payment
-                            </label>
-                            <div class="radio-panel-content">
-                                <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
+                    </div>
+                    <div class="col-md-10 col-lg-6">
+                        <h3 class="font-weight-medium">@lang('Sifariş Məlumatları')</h3>
+                        <div class="ch-form ch-mailform form-checkout">
+                            <div class="row row-30">
+                                <div class="col-12">
+                                    <div class="form-wrap">
+                                        <textarea placeholder="SİFARİŞLƏ BAĞLI XÜSUSİ İSTƏK"  class="form-input @error('special_text') form-control-has-validation @enderror" name="special_text" id="" cols="30" rows="15" style="margin-top: 0px; margin-bottom: 0px; height: 151px;"></textarea>
+                                        @error('special_text')
+                                        <span class="form-validation">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-10 col-lg-6">
-                    <h3 class="font-weight-medium">Cart total</h3>
-                    <div class="table-custom-responsive">
-                        <table class="table-custom table-custom-primary table-checkout">
-                            <tbody>
+            </div>
+        </section>
+        <!-- Shopping Cart-->
+        <section class="section section-sm bg-default text-md-left" id="cart-section">
+            <div class="container">
+                <h3 class="font-weight-medium">Your shopping cart</h3>
+                <div class="table-custom-responsive">
+                    <table class="table-custom table-cart">
+                        <thead>
+                        <tr>
+                            <th>Product name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($products as $product)
                             <tr>
-                                <td>Cart Subtotal</td>
-                                <td class="heading-3">$<span>0</span></td>
+
+                                <td>
+                                    <a class="table-cart-figure" href="{{ route('product', optional($product->associatedModel)->slug) }}">
+                                        <img src="{{ asset('uploads/'.optional($product->associatedModel)->image) }}" alt="" width="146" height="132"></a>
+                                    <a class="table-cart-link" href="{{ route('product', optional($product->associatedModel)->slug) }}">{{ $product->name }} {{ $product->attributes['product_attribute'] ? '('.$product->attributes['product_attribute']->name.')' : '' }}</a></td>
+                                <td>{{ $product->price }} AZN</td>
+                                <td>
+                                    <div class="table-cart-stepper">
+                                        <div class="stepper ">
+                                            <input readonly class="form-input stepper-input" id="product_quantity_{{ $product->id }}" type="number" data-zeros="true" value="{{ $product->quantity }}" min="1" max="1000">
+                                            <span class="stepper-arrow up up_product_quantity" title="{{ $product->id }}" ></span>
+                                            <span class="stepper-arrow down up_product_down" title="{{ $product->id }}" ></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ $product->price*$product->quantity }} AZN</td>
                             </tr>
-                            <tr>
-                                <td>Shipping</td>
-                                <td>Free</td>
-                            </tr>
-                            <tr>
-                                <td>Total</td>
-                                <td class="heading-3">$<span>0</span></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        @endforeach
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </section>
+        <!-- Section Payment-->
+        <section class="section section-sm section-last bg-default text-md-left">
+            <div class="container">
+                <div class="row row-50 justify-content-center">
+                    <div class="col-md-10 col-lg-6">
+                        <h3 class="font-weight-medium">@lang('Credit Cart Detail')</h3>
+                        <div class="ch-form ch-mailform form-checkout">
+                            <div class="row row-30">
+                                <div class="col-sm-12">
+                                    <div class="form-wrap">
+                                        <input class="form-input " id="checkout-last-name-1" type="text" name="card_name" value="{{ old('card_name') }}" data-constraints="@Required"/>
+                                        <label class="form-label" for="checkout-last-name-1">@lang('Credit Cart Name')</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-wrap">
+                                        <input class="form-input" id="checkout-last-name-1" type="text" name="card_number" value="{{ old('card_number') }}" data-constraints="@Required"/>
+                                        <label class="form-label" for="checkout-last-name-1">@lang('Credit Cart Number')</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-wrap">
+                                        <input class="form-input" id="checkout-first-name-1" type="text" name="due_date" value="{{ old('due_date') }}" data-constraints="@Required"/>
+                                        <label class="form-label" for="checkout-first-name-1">@lang('Due Date')</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-wrap">
+                                        <input class="form-input" id="checkout-last-name-1" type="text" name="cvc" value="{{ old('cvc') }}" data-constraints="@Required"/>
+                                        <label class="form-label" for="checkout-last-name-1">@lang('CVC')</label>
+                                    </div>
+                                </div>
 
-            <div class="group-xl group-justify justify-content-center justify-content-md-between">
-                <div>
-                </div>
-                <div>
-                    <div class="group-xl group-middle">
-                        <div>
 
-                        </div><a class="button button-lg button-primary button-zakaria" href="#">Ocher</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-lg-6">
+                        <h3 class="font-weight-medium">Cart total</h3>
+                        <div class="table-custom-responsive">
+                            <table class="table-custom table-custom-primary table-checkout">
+                                <tbody>
+                                <tr>
+                                    <td>@lang('Cart Subtotal')</td>
+                                    <td class="heading-3"><span>{{ \Cart::getTotalQuantity() }}</span> AZN</td>
+                                </tr>
+                                <tr>
+                                    <td>@lang('Shipping')</td>
+                                    <td>Free</td>
+                                </tr>
+                                <tr>
+                                    <td>@lang('Total')</td>
+                                    <td class="heading-3"><span>{{ \Cart::getTotalQuantity() }}</span> AZN</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
-    </section>
+                <div class="group-xl group-justify justify-content-center justify-content-md-between">
+                    <div>
+                    </div>
+                    <div>
+                        <div class="group-xl group-middle">
+                            <div>
+
+                            </div><button class="button button-lg button-primary button-zakaria" >@lang('Tamamla')</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+                @else
+                <div class="alert alert-danger mt-5 mb-5">@lang('Səbətinizdə heçbir məhsul yoxdur')</div>
+        @endif
+    </form>
+
 @endsection

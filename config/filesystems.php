@@ -65,14 +65,14 @@ return [
         ],
 
         /*
-         * Taleh Farzaliyev
+         * Taleh Farzaliyev / Duzenlendi Rauf
          * Uplad olunanlar bura olacaq
          */
         'uploads' => [
             'driver' => 'local',
             'root' => public_path('uploads'),
-            'url' => env('APP_URL').'/public',
-            'visibility' => 'uploads',
+//            'url' => env('APP_URL').'/public',
+//            'visibility' => 'uploads',
         ]
 
     ],

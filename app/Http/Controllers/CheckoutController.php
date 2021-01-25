@@ -13,6 +13,11 @@ class CheckoutController extends Controller
      * @return Application|Factory|View
      */
     public function index() {
-        return view('site.pages.checkout');
+        $cartCollection = \Cart::getContent();
+
+//        return  $cartCollection;
+        return view('site.pages.checkout',[
+            'products' => $cartCollection
+        ]);
     }
 }

@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', __('contact.title_index'))
+@section('title', __('Orders'))
 @section('content')
     <!-- Page content -->
     <div class="page-content pt-0">
@@ -14,20 +14,20 @@
                             <input type="hidden" name="order" value="{{request('order')}}">
                             <div class="form-row">
                                 <div class="form-group col-sm-3">
-                                    <label for="name">{{__('messages.name')}}</label>
-                                    <input type="text" class="form-control" placeholder="{{__('messages.name')}}" name="name" id="name" value="{{request('name')}}">
+                                    <label for="name">{{__('messages.first_name')}}</label>
+                                    <input type="text" class="form-control" placeholder="{{__('messages.first_name')}}" name="first_name" id="first_name" value="{{request('first_name')}}">
                                 </div>
                                 <div class="form-group col-sm-3">
-                                    <label for="subject">{{__('messages.subject')}}</label>
-                                    <input type="text" class="form-control" placeholder="{{__('messages.subject')}}" name="subject" id="subject" value="{{request('subject')}}">
+                                    <label for="subject">{{__('messages.last_name')}}</label>
+                                    <input type="text" class="form-control" placeholder="{{__('messages.last_name')}}" name="last_name" id="last_name" value="{{request('last_name')}}">
                                 </div>
                                 <div class="form-group col-sm-3">
-                                    <label for="email">{{__('messages.email')}}</label>
-                                    <input type="text" class="form-control" placeholder="{{__('messages.email')}}" name="email" id="email" value="{{request('email')}}">
+                                    <label for="subject">{{__('messages.phone')}}</label>
+                                    <input type="text" class="form-control" placeholder="{{__('messages.phone')}}" name="phone" id="phone" value="{{request('phone')}}">
                                 </div>
                                 <div class="form-group col-sm-3">
-                                    <label for="message">{{__('messages.message')}}</label>
-                                    <input type="text" class="form-control" name="message" id="message" placeholder="{{__('messages.message')}}" value="{{request('message')}}">
+                                    <label for="email">{{__('messages.id')}}</label>
+                                    <input type="text" class="form-control" placeholder="{{__('messages.Order Id')}}" name="id" id="id" value="{{request('id')}}">
                                 </div>
 
                                 <div class="col-sm-12">
@@ -47,29 +47,37 @@
                             <thead>
                             <tr>
                                 <th><a class="{{ column_active('id')}}" href="{{ sort_url('id')}}">#</a></th>
-                                <th><a class="{{ column_active('name')}}" href="{{ sort_url('name')}}">{{__('messages.name')}}</a></th>
-                                <th><a class="{{ column_active('subject')}}" href="{{ sort_url('subject')}}">{{__('messages.subject')}}</a></th>
-                                <th><a class="{{ column_active('email')}}" href="{{ sort_url('email')}}">{{__('messages.email')}}</a></th>
-                                <th><a class="{{ column_active('message')}}" href="{{ sort_url('message')}}">{{__('messages.message')}}</a></th>
+                                <th><a class="{{ column_active('customer_id')}}" href="{{ sort_url('customer_id')}}">{{__('messages.customer')}}</a></th>
+                                <th><a class="{{ column_active('first_name')}}" href="{{ sort_url('first_name')}}">{{__('messages.first_name')}}</a></th>
+                                <th><a class="{{ column_active('last_name')}}" href="{{ sort_url('last_name')}}">{{__('messages.last_name')}}</a></th>
+                                <th><a class="{{ column_active('phone')}}" href="{{ sort_url('phone')}}">{{__('messages.phone')}}</a></th>
+                                <th><a class="{{ column_active('address')}}" href="{{ sort_url('address')}}">{{__('messages.address')}}</a></th>
+                                <th><a class="{{ column_active('special_text')}}" href="{{ sort_url('special_text')}}">{{__('messages.special_text')}}</a></th>
+                                <th><a class="{{ column_active('total')}}" href="{{ sort_url('total')}}">{{__('messages.total')}}</a></th>
+                                <th><a class="{{ column_active('order_status')}}" href="#">{{__('messages.order_status')}}</a></th>
                                 <th><a class="{{ column_active('created_at') }}" href="{{ sort_url('created_at') }}">{{__('messages.created_at')}}</a></th>
                                 <th><a class="{{ column_active('updated_at') }}" href="{{ sort_url('updated_at') }}">{{__('messages.updated_at')}}</a></th>
                                 <th class="text-center"><i class="icon-menu7"></i></th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($contacts as $contact)
+                            @foreach($items as $item)
                                 <tr>
-                                    <td>{{ $contact->id }}</td>
-                                    <td>{{ $contact->name }}</td>
-                                    <td>{{ $contact->subject }}</td>
-                                    <td>{{ $contact->email }}</td>
-                                    <td>{{ $contact->message }}</td>
-                                    <td>{{ $contact->created_at->diffForHumans() }}</td>
-                                    <td>{{ $contact->updated_at->diffForHumans() }}</td>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ optional($item->customer)->first_name }}</td>
+                                    <td>{{ $item->first_name }}</td>
+                                    <td>{{ $item->last_name }}</td>
+                                    <td>{{ $item->phone }}</td>
+                                    <td>{{ $item->address }}</td>
+                                    <td>{{ $item->total.' AZN' }}</td>
+                                    <td>{{ $item->special_text }}</td>
+                                    <td>{{ optional($item->order_status)->name }}</td>
+                                    <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->updated_at }}</td>
                                     <td class="text-center">
                                         <div class="btn-group">
-                                            <x-show route="admin.contact.show" :id="$contact->id"/>
-                                            <x-delete route="admin.contact.destroy" :id="$contact->id"/>
+                                            <x-show route="admin.order.show" :id="$item->id"/>
+                                            <x-delete route="admin.order.destroy" :id="$item->id"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -78,7 +86,7 @@
                         </table>
                     </div>
                 </div>
-                {{ $contacts->links() }}
+                {{ $items->links() }}
             </div>
             <!-- /content area -->
         </div>

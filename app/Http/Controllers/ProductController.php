@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 use App\Models\ProductCategory;
+use App\Models\SingleProductAttributes;
 use App\Providers\AppServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -65,8 +66,8 @@ class ProductController extends Controller
 
         $products = $products->paginate($count);
 
-        $categories = Menu::where([
-            'type' => 2
+        $categories = Category::where([
+            'is_product' => 2
         ])->with('item')->get();
 
         $popularProducts = Product::where(['status' => 1, 'is_popular' => 1])->get();
@@ -104,21 +105,20 @@ class ProductController extends Controller
 //        })->first();
 
 
-//        dd($slug);
         $getSingleProduct = Product::whereTranslation('slug', $slug)->firstOrFail();
 
-        dd($getSingleProduct);
 
-        dd($getSingleProduct);
-        $productAttributes = ProductAttribute::where(['status' => 1])->get();
+        $productAttributes = ProductAttribute::with('variants')
+            ->whereHas('variants', function($q) use ($getSingleProduct) {
+                $q->where('product_id','=', $getSingleProduct['id']);
+            })
+            ->where(['status' => 1])
+            ->limit(1)->get();
 
-        $attributes = [];
-        if (isset($getSingleProduct->singleAttribute)) {
-            foreach ($getSingleProduct->singleAttribute as $key => $attr) {
-                $attributes[$attr->id][] = [
-                    'name' => $attr->translate($locale)->name
-                ];
-            }
+        $single_product_attribute = null;
+
+        if ($request->get('single_product_attribute_id')){
+            $single_product_attribute = SingleProductAttributes::find($request->get('single_product_attribute_id'));
         }
 
         $featuredProducts = Product::where(['is_popular' => 1, 'status' => 1])->limit(4)->get();
@@ -129,8 +129,8 @@ class ProductController extends Controller
             return view('site.pages.single-product', [
                 'product' => $getSingleProduct,
                 'productAttributes' => $productAttributes,
-                'attributes' => $attributes,
-                'featuredProducts' => $featuredProducts
+                'featuredProducts' => $featuredProducts,
+                'single_product_attribute' => $single_product_attribute
             ]);
         } else {
             abort('404');

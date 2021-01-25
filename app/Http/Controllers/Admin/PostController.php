@@ -71,7 +71,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::enable()->get();
+        $categories = Category::enable()->where('is_product', 0)->get();
 
         return view('admin.pages.post.create',compact('categories'));
     }
@@ -91,7 +91,8 @@ class PostController extends Controller
 
         if ($request->file('image'))
         {
-            // $data['image'] = request('image')->store('',['disk' => 'uploads']);;
+
+            $data['image'] = request('image')->store('blogs',['disk' => 'uploads']);;
         }
 
         Post::create($data);
@@ -118,7 +119,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $categories = Category::enable()->get();
+        $categories = Category::enable()->where('is_product', 0)->get();
 
         return view('admin.pages.post.edit', compact('post','categories'));
     }
@@ -141,8 +142,9 @@ class PostController extends Controller
         if ($request->file('image'))
         {
             // _file_delete($data['image']);
+//            $data['image'] =  $this -> upload( $request , 'blogs' );
 
-            // $data['image'] = request('image')->store('',['disk' => 'uploads']);
+             $data['image'] = request('image')->store('blogs',['disk' => 'uploads']);
         }
 
 
@@ -190,7 +192,7 @@ class PostController extends Controller
         $slug = [];
         foreach (langs_get_code_name() as $key => $lang)
         {
-            $slug['slug:' . $key] = Str::slug($request->get('title:' . $key));
+            $slug['slug:' . $key] = Str::slug($request->get('name:' . $key));
         }
         return $slug;
     }

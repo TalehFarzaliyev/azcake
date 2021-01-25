@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Menu;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductImages;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -78,7 +79,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $product_categories = Category::where('status', 1)->get();
+        $product_categories = Category::enable()->where('is_product', 1)->get();
         //$product_attributes = ProductAttribute::all();
         return view('admin.pages.product.create',compact('product_categories'));
     }
@@ -111,11 +112,38 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return void
+     * @return Application|Factory|View|void
      */
-    public function show(int $id)
+    public function show(Product $product)
     {
-        //
+        $images = ProductImages::where(['product_id'=> $product['id']])->get();
+        return view('admin.pages.product.show',[
+            'product'   => $product,
+            'images'    => $images
+        ]);
+    }
+
+
+    public function dropzone(Request $request, Product $product){
+
+        $data['product_id'] = $product['id'];
+//        $data['image'] =  $this -> upload( $request , 'products', 'file');
+        $data['image'] = request('file')->store('products',['disk' => 'uploads']);;
+        ProductImages::create($data);
+        return \response([
+            'status' => true
+        ], 201);
+    }
+
+
+    public function dropzoneDelete($id){
+        $p_i = ProductImages::find($id);
+        _file_delete($p_i->image);
+
+
+        $p_i->delete();
+        $arr = _sessionmessage(null, null, null, true);
+        return response($arr);
     }
 
     /**
@@ -126,7 +154,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product_categories = Category::where('status', 1)->get();
+        $product_categories = Category::enable()->where('is_product', 1)->get();
 
         return view('admin.pages.product.edit', compact('product','product_categories'));
     }
@@ -197,7 +225,7 @@ class ProductController extends Controller
         $slug = [];
         foreach (langs_get_code_name() as $key => $lang)
         {
-            $slug['slug:' . $key] = Str::slug($request->get('title:' . $key));
+            $slug['slug:' . $key] = Str::slug($request->get('name:' . $key));
         }
         return $slug;
     }

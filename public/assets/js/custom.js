@@ -7,7 +7,6 @@
  * ---------------------------------------------------------------------------- */
 
 function _getConfirm(url,token = null,method = 'DELETE',type='warning') {
-
     swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -58,7 +57,6 @@ function getSelect(url, selectname, select,method = "GET"){
         type:method,
         dataType: 'json',
         success: (data) => {
-
             let regionSelect = $('select[name="'+selectname+'"]');
            // let regionSelect = $('select[name="region_id"]');
             console.log(regionSelect);
